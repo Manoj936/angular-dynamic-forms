@@ -48,10 +48,14 @@ export class DynamicFormComponent implements OnInit {
   }
 
   getErrorMessage(control : formControlsInterface){
-   const controls = this.dynamicFormGroup.get(control.name);
-   
-   console.log(  controls)
-
-   console.log(this.dynamicFormGroup)
+   const myControls = this.dynamicFormGroup.get(control.name);
+   let errorMsg  = '';
+   control.validators.forEach((val)=>{
+    if(myControls.hasError(val.validatorName as string)){
+      errorMsg = val.message as string
+     
+    }
+   })
+   return errorMsg
   }
 }
